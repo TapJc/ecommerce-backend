@@ -34,14 +34,16 @@ public class OrderController {
                 .map(order -> {
                     Product product = productRepository.findById(productId).orElseThrow();
                     // Complete the orderItem by attaching the full Order and Product objects
-                    // JPA will extract their ids and save them as foreign keys (order_id, product_id) in the order_item table                    orderItem.setOrder(order);
+                    // JPA will extract their ids and save them as foreign keys (order_id, product_id) in the order_item table                    
+                    orderItem.setOrder(order);
                     orderItem.setProduct(product);
-                
-                    // Register the fully built orderItem with JPA by adding it to the order's list
-                    // CascadeType.ALL will scan this list and automatically INSERT the new orderItem into the order_item table
+                    
+                    // Add the fully built orderItem to the order's list in memory
+                    // This is required so JPA can find the orderItem when save() is called
                     order.getOrderItems().add(orderItem);
                     
-                    // Save the order which cascades down and saves the new orderItem automatically
+                    // Triggers CascadeType.ALL which scans the orderItems list, detects the new orderItem,
+                    // and automatically runs an INSERT into the order_item table with all its values
                     return ResponseEntity.ok(orderRepository.save(order));
                 })
                 .orElse(ResponseEntity.notFound().build());

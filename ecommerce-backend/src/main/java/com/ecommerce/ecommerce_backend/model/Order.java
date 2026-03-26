@@ -1,5 +1,6 @@
 package com.ecommerce.ecommerce_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -21,6 +22,8 @@ public class Order {
     // mappedBy = "order" delegates foreign key management to the "order" field in OrderItem.
     // CascadeType.ALL ensures any operation on an Order cascades down to its OrderItems.    
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    // Serialize the orderItems list normally, starting point of the relationship
+    @JsonManagedReference
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     private String orderDate;

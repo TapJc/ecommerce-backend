@@ -1,5 +1,6 @@
 package com.ecommerce.ecommerce_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,8 @@ public class OrderItem {
     // Creates order_id foreign key column in order_item table
     @ManyToOne
     @JoinColumn(name = "order_id")
+    // Skip serializing the order field to prevent infinite recursion, as OrderItem is the child in the relationship
+    @JsonBackReference
     private Order order;
     
     // Many order items can belong to one product
