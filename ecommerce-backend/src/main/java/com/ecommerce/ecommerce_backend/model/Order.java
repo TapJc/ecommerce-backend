@@ -16,8 +16,9 @@ import java.util.*;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(generator = "UUID")
+    @org.hibernate.annotations.UuidGenerator
+    private String id;
 
     // mappedBy = "order" delegates foreign key management to the "order" field in OrderItem.
     // CascadeType.ALL ensures any operation on an Order cascades down to its OrderItems.    
@@ -37,7 +38,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
     

@@ -28,7 +28,7 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}/items")
-    public ResponseEntity<Order> addOrderItem(@PathVariable long orderId, @RequestParam long productId, @RequestBody OrderItem orderItem) {
+    public ResponseEntity<Order> addOrderItem(@PathVariable String orderId, @RequestParam long productId, @RequestBody OrderItem orderItem) {
          // Find the order by id, returns an Optional<Order>
         return orderRepository.findById(orderId)
                 .map(order -> {
@@ -57,7 +57,7 @@ public class OrderController {
 
     // Get a specific order by ID (includes its order items)
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable long id) {
+    public ResponseEntity<Order> getOrderById(@PathVariable String id) {
         return orderRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -65,7 +65,7 @@ public class OrderController {
     
     // Delete an order by ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable long id) {
+    public ResponseEntity<Void> deleteOrder(@PathVariable String id) {
         if (orderRepository.existsById(id)) {
             orderRepository.deleteById(id);
             return ResponseEntity.noContent().build(); // 204 No Content
