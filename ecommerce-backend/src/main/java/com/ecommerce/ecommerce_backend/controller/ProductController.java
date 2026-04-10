@@ -31,4 +31,12 @@ public class ProductController {
 				.map(ResponseEntity::ok) // If the product was found, wrap it in a `200 OK` response
 				.orElse(ResponseEntity.notFound().build()); // If nothing was found, return a `404 Not Found`
 	}
+
+	// Listens for GET /api/products/search?query=
+	@GetMapping("/search")
+	public ResponseEntity<List<Product>> getRequestedProduct(@RequestParam String query) {
+		// Search for products whose name contains the query string (case insensitive)
+    	// Returns 200 with a list of matching products, or an empty array if none found
+		return ResponseEntity.ok(productRepository.findByNameContainingIgnoreCase(query));
+	}
 }
