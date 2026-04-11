@@ -2,7 +2,7 @@
 ---
 A RESTful backend API built with Java Spring Boot that powers an Amazon-inspired e-commerce platform. It exposes endpoints for retrieving products and managing orders, backed by an H2 in-memory database that is automatically initialized with table creation and data seeding on startup. The backend handles the full order lifecycle, from receiving cart data to persisting Order and OrderItem records.
 
-**Technologies**
+💻 **Technologies**
 ---
 - Java
 - Spring Boot
@@ -11,7 +11,7 @@ A RESTful backend API built with Java Spring Boot that powers an Amazon-inspired
 - H2 (in-memory database)
 - Maven (via wrapper)
 
-**Features**
+📑 **Features**
 ---
 - Product Endpoints: Exposes GET /api/products to fetch all products, GET /api/products/{id} to fetch a single product, and GET /api/products/search?query= to search products by name case-insensitively.
 - Order Endpoints: Exposes GET /api/orders to fetch all orders, GET /api/orders/{id} to fetch a specific order, POST /api/orders to create a new order, POST /api/orders/{orderId}/items to add an order item linked to an existing order and product, and DELETE /api/orders/{id} to remove an order.
